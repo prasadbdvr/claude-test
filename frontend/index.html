@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Telusko Workflow Engine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Login Modal (shown when unauthenticated) ── -->
+  <div id="loginModal" class="modal-overlay login-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <div class="modal-card login-card">
+      <div class="modal-header">
+        <div class="header-brand">
+          <span class="brand-badge">TELUSKO</span>
+          <span class="brand-name">Workflow Engine</span>
+        </div>
+        <h2 id="login-title" class="modal-title login-title">Sign In</h2>
+      </div>
+      <form id="login-form" class="task-form" novalidate>
+        <div class="form-group">
+          <label for="login-username">Username <span class="required" aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="login-username"
+            name="username"
+            class="form-input"
+            placeholder="e.g. admin"
+            required
+            autocomplete="username"
+            autocorrect="off"
+            autocapitalize="none"
+          />
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password <span class="required" aria-hidden="true">*</span></label>
+          <input
+            type="password"
+            id="login-password"
+            name="password"
+            class="form-input"
+            placeholder="••••••••"
+            required
+            autocomplete="current-password"
+          />
+        </div>
+        <div id="login-error" class="login-error" role="alert" aria-live="assertive" hidden></div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary login-btn">Sign In</button>
+        </div>
+        <p class="login-hint">Demo: admin / admin123 &nbsp;·&nbsp; content / content123</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Top Navigation ── -->
+  <header class="app-header">
+    <div class="header-brand">
+      <span class="brand-badge">TELUSKO</span>
+      <span class="brand-name">Workflow Engine</span>
+    </div>
+
+    <div id="stats" class="stats-bar"></div>
+
+    <div class="role-wrapper">
+      <span class="role-label">Logged in as:</span>
+      <span id="role-indicator" class="role-indicator"></span>
+      <button id="logoutBtn" class="btn-logout" title="Sign out" aria-label="Sign out">
+        &#x2715; Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Kanban Board ── -->
+  <main class="board-wrapper">
+    <div id="board" class="board" role="list" aria-label="Video production pipeline"></div>
+  </main>
+
+  <!-- ── Floating Action Button ── -->
+  <button id="fab" class="fab" title="Add New Video Task" aria-label="Add New Video Task">
+    <span class="fab-icon" aria-hidden="true">+</span>
+  </button>
+
+  <!-- ── Add / Edit Modal ── -->
+  <div id="modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modal-title" class="modal-title">Add New Video Task</h2>
+        <button id="modal-close" class="modal-close" aria-label="Close modal">&#x2715;</button>
+      </div>
+
+      <form id="task-form" class="task-form" novalidate>
+        <div class="form-group">
+          <label for="task-title">Video Title <span class="required" aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="task-title"
+            name="task-title"
+            class="form-input"
+            placeholder="e.g. Introduction to Spring Boot"
+            required
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="task-description">Description</label>
+          <textarea
+            id="task-description"
+            name="task-description"
+            class="form-input form-textarea"
+            placeholder="Brief overview of the video content..."
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="task-role">Assigned Role</label>
+            <select id="task-role" name="task-role" class="form-input form-select">
+              <option value="Content">Content Team</option>
+              <option value="Editor">Video Editor</option>
+              <option value="Uploader">Uploader</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="task-state">Stage</label>
+            <select id="task-state" name="task-state" class="form-input form-select">
+              <option value="code_ready">Code &amp; Examples Ready</option>
+              <option value="recorded">Recorded</option>
+              <option value="editing">Editing in Progress</option>
+              <option value="uploaded">Uploaded (Pending Verification)</option>
+              <option value="published">Verified &amp; Published</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Toast Notification Container ── -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
